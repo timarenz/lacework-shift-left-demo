@@ -43,12 +43,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Debug
-        shell: bash
-        run: |
-          echo "list ${{ steps.meta.outputs.tags }}"
-          echo "1st ${{ steps.meta.outputs.version }}"
-
       - name: Scan for vulnerabilities
         uses: timarenz/lw-scanner-action@v0.3.0
         env:
@@ -59,7 +53,7 @@ jobs:
           LW_SCANNER_DISABLE_UPDATES: true
         with:
           image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          image_tag: ${{ steps.meta.outputs.tags[0] }}
+          image_tag: ${{ steps.meta.outputs.version }}
           fail_only_if_vulnerabilities_fixable: false
           fail_if_critical_vulnerabilities_found: false
           fail_if_high_vulnerabilities_found: false
