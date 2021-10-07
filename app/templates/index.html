@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+
+        body {
+            background: white;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        img.logo {
+            max-width: 50%
+        }
+
+        h1 {
+            background-color: white;
+            color: black;
+        }
+
+        p {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+    <title>Lacework App</title>
+</head>
+
+<body>
+    <img class="logo" alt="lacework-Logo" src="{{ url_for('static', filename='lacework-logo.svg') }}">
+    <h1>{{ event_name }}</h1>
+    <img src="{{ url }}" />
+    <p>
+        This containers hostname/id is: {{ hostname }}<br>
+        <a href="{{ url_for('lacework') }}">Scanned for vulnerabilities</a> by Lacework.
+    </p>
+
+</body>
+
+</html>
