@@ -47,8 +47,7 @@ jobs:
         shell: bash
         run: |
           echo "list ${{ steps.meta.outputs.tags }}"
-          echo "1st ${{ steps.meta.outputs.tags[0] }}"
-          echo "2nd ${{ steps.meta.outputs.tags[1] }}"
+          echo "1st ${{ steps.meta.outputs.version }}"
 
       - name: Scan for vulnerabilities
         uses: timarenz/lw-scanner-action@v0.3.0
