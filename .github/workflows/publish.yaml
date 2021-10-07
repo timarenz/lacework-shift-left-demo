@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - "main"
-    # tags:
-    #   - "v*"
+    tags:
+      - "v*"
 
 env:
   REGISTRY: ghcr.io
@@ -62,3 +62,10 @@ jobs:
           fail_if_info_vulnerabilities_found: false
           save_html_report: true
           html_report_file_name: lacework.html
+
+      - name: Push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          load: push
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
