@@ -1,4 +1,4 @@
-name: Scan for vulnerabilities
+name: vulnerability-scan
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ env:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Scan for vulnerabilities
     runs-on: ubuntu-latest
     permissions:
       contents: read
