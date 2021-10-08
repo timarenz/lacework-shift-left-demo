@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for
+import urllib.parse
 import random
 import platform
 
 app = Flask(__name__)
 
 event_name = "Welcome to the Hops & DevOps of the 22nd of Sept in Berlin."
+tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @automatecloud about Shift Left Security with #laceworks #hopsndevops"
 
 
 @app.route('/')
@@ -17,7 +19,7 @@ def index():
     ]
     url = random.choice(images)
     hostname = platform.node()
-    return render_template('index.html', url=url, hostname=hostname, event_name=event_name)
+    return render_template('index.html', url=url, hostname=hostname, event_name=event_name, tweet_text=tweet_text, tweet_text_url=urllib.parse.quote(tweet_text))
 
 
 @app.route('/andreas')
