@@ -5,236 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
-
-        body {
-            background: white;
-            color: #333;
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
-        }
-
-        img.logo {
-            max-width: 50%
-        }
-
-        h1 {
-            background-color: white;
-            color: black;
-        }
-
-        p {
-            text-align: center;
-            color: #333;
-        }
-
-        .resp-sharing-button__link,
-        .resp-sharing-button__icon {
-            display: inline-block
-        }
-
-        .resp-sharing-button__link {
-            text-decoration: none;
-            color: #fff;
-            margin: 0.5em
-        }
-
-        .resp-sharing-button {
-            border-radius: 5px;
-            transition: 25ms ease-out;
-            padding: 0.5em 0.75em;
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif
-        }
-
-        .resp-sharing-button__icon svg {
-            width: 1em;
-            height: 1em;
-            margin-right: 0.4em;
-            vertical-align: top
-        }
-
-        .resp-sharing-button--small svg {
-            margin: 0;
-            vertical-align: middle
-        }
-
-        /* Non solid icons get a stroke */
-        .resp-sharing-button__icon {
-            stroke: #fff;
-            fill: none
-        }
-
-        /* Solid icons get a fill */
-        .resp-sharing-button__icon--solid,
-        .resp-sharing-button__icon--solidcircle {
-            fill: #fff;
-            stroke: none
-        }
-
-        .resp-sharing-button--twitter {
-            background-color: #55acee
-        }
-
-        .resp-sharing-button--twitter:hover {
-            background-color: #2795e9
-        }
-
-        .resp-sharing-button--pinterest {
-            background-color: #bd081c
-        }
-
-        .resp-sharing-button--pinterest:hover {
-            background-color: #8c0615
-        }
-
-        .resp-sharing-button--facebook {
-            background-color: #3b5998
-        }
-
-        .resp-sharing-button--facebook:hover {
-            background-color: #2d4373
-        }
-
-        .resp-sharing-button--tumblr {
-            background-color: #35465C
-        }
-
-        .resp-sharing-button--tumblr:hover {
-            background-color: #222d3c
-        }
-
-        .resp-sharing-button--reddit {
-            background-color: #5f99cf
-        }
-
-        .resp-sharing-button--reddit:hover {
-            background-color: #3a80c1
-        }
-
-        .resp-sharing-button--google {
-            background-color: #dd4b39
-        }
-
-        .resp-sharing-button--google:hover {
-            background-color: #c23321
-        }
-
-        .resp-sharing-button--linkedin {
-            background-color: #0077b5
-        }
-
-        .resp-sharing-button--linkedin:hover {
-            background-color: #046293
-        }
-
-        .resp-sharing-button--email {
-            background-color: #777
-        }
-
-        .resp-sharing-button--email:hover {
-            background-color: #5e5e5e
-        }
-
-        .resp-sharing-button--xing {
-            background-color: #1a7576
-        }
-
-        .resp-sharing-button--xing:hover {
-            background-color: #114c4c
-        }
-
-        .resp-sharing-button--whatsapp {
-            background-color: #25D366
-        }
-
-        .resp-sharing-button--whatsapp:hover {
-            background-color: #1da851
-        }
-
-        .resp-sharing-button--hackernews {
-            background-color: #FF6600
-        }
-
-        .resp-sharing-button--hackernews:hover,
-        .resp-sharing-button--hackernews:focus {
-            background-color: #FB6200
-        }
-
-        .resp-sharing-button--vk {
-            background-color: #507299
-        }
-
-        .resp-sharing-button--vk:hover {
-            background-color: #43648c
-        }
-
-        .resp-sharing-button--twitter {
-            background-color: #55acee;
-            border-color: #55acee;
-        }
-
-        .resp-sharing-button--twitter:hover,
-        .resp-sharing-button--twitter:active {
-            background-color: #2795e9;
-            border-color: #2795e9;
-        }
-
-        .resp-sharing-button--linkedin {
-            background-color: #0077b5;
-            border-color: #0077b5;
-        }
-
-        .resp-sharing-button--linkedin:hover,
-        .resp-sharing-button--linkedin:active {
-            background-color: #046293;
-            border-color: #046293;
-        }
-    </style>
-    <title>Lacework App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Lacework Shift Left Demo App</title>
 </head>
 
 <body>
-    <img class="logo" alt="lacework-Logo" src="{{ url_for('static', filename='lacework-logo.svg') }}">
-    <h1>{{ event_name }}</h1>
-    <img src="{{ url }}" />
-    <p>
-        This containers hostname/id is: {{ hostname }}<br>
-        <a href="{{ url_for('lacework') }}">Scanned for vulnerabilities</a> by Lacework.
-    </p>
-
-    <p> Feel free to share: "{{ tweet_text}}"</p>
-
-    <!-- Sharingbutton Twitter -->
-    <a class="resp-sharing-button__link"
-        href="https://twitter.com/intent/tweet/?text={{ tweet_text_url }}t&amp;url=https%3A%2F%2Fwww.lacework.com"
-        target="_blank" rel="noopener" aria-label="Share on Twitter">
-        <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--large">
-            <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--circle">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M18.5 7.4l-2 .2c-.4-.5-1-.8-2-.8C13.3 6.8 12 8 12 9.4v.6c-2 0-4-1-5.4-2.7-.2.4-.3.8-.3 1.3 0 1 .4 1.7 1.2 2.2-.5 0-1 0-1.2-.3 0 1.3 1 2.3 2 2.6-.3.4-.7.4-1 0 .2 1.4 1.2 2 2.3 2-1 1-2.5 1.4-4 1 1.3 1 2.7 1.4 4.2 1.4 4.8 0 7.5-4 7.5-7.5v-.4c.5-.4.8-1.5 1.2-2z" />
-                    <circle cx="12" cy="12" r="11.5" />
-                </svg>
-            </div>Share on Twitter
+    <div class="px-4 pt-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='lacework.svg') }}" alt="" height="100">
+        <h1 class="display-4 fw-bold ">The Data-Driven Security Platform For the Cloud</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4 text-secondary">{{ event_text }}</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                <a href="https://twitter.com/intent/tweet/?text={{ tweet_text_url }}t&amp;url=https%3A%2F%2Fwww.lacework.com"
+                    target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-twitter" viewBox="0 0 16 16">
+                            <path
+                                d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                        </svg>
+                        Twitter
+                    </button>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.lacework.com&amp;title={{ tweet_text_url }}t&amp;summary={{ tweet_text_url }}t&amp;source=https%3A%2F%2Fwww.lacework.com"
+                    target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-linkedin" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                        </svg>
+                        Linkedin
+                    </button>
+                </a>
+            </div>
         </div>
-    </a>
-
-    <!-- Sharingbutton LinkedIn -->
-    <a class="resp-sharing-button__link"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.lacework.com&amp;title={{ tweet_text_url }}t&amp;summary={{ tweet_text_url }}t&amp;source=https%3A%2F%2Fwww.lacework.com"
-        target="_blank" rel="noopener" aria-label="Share on LinkedIn">
-        <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--large">
-            <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--circle">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="11.5" />
-                    <path
-                        d="M15 12.5c-.28 0-.5.22-.5.5v3.5h-3s.03-6.48 0-7h3v.83s.46-.75 1.7-.75c1.56 0 2.3 1.12 2.3 3.3v3.62h-3V13c0-.28-.23-.5-.5-.5zm-7.5-3h2v7h-2z" />
-                    <circle cx="8.5" cy="6.5" r="1" />
-                </svg>
-            </div>Share on LinkedIn
+        <div>
+            <div class="container px-5">
+                <img src="{{ url }}" class="img-fluid mb-4" alt="BeachOps" height="500" loading="lazy">
+            </div>
         </div>
-    </a>
+        <p class="text-secondary">This containers hostname/id is: {{ hostname }}<br>
+            <a href="{{ url_for('lacework') }}">Scanned for vulnerabilities</a> by Lacework.
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 
 </body>
 
