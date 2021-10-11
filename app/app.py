@@ -37,7 +37,7 @@ def andreas():
 
 @app.route('/lacework')
 def lacework():
-    return render_template('lacework-scan.html')
+    return render_template('lacework.html')
 
 
 if __name__ == "__main__":
