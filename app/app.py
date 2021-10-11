@@ -2,11 +2,14 @@ from flask import Flask, render_template, url_for
 import urllib.parse
 import random
 import platform
+import requests
 
 app = Flask(__name__)
 
 event_text = "Welcome to the Hops & DevOps of the 22nd of Sept in Berlin."
 tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @automatecloud about Shift Left Security with #laceworks #devsecops"
+random_cocktail = requests.get(
+    'https://www.thecocktaildb.com/api/json/v1/1/random.php')
 
 
 @app.route('/')
