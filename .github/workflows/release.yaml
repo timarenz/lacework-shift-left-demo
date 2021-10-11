@@ -63,11 +63,11 @@ jobs:
 
       - name: Push Docker image
         uses: docker/build-push-action@v2
-        env:
-          FROM_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
         with:
           context: .
           file: Dockerfile.lacework
+          build-args: |
+            "SOURCE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
