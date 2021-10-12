@@ -8,10 +8,10 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-event_text = "Welcome to the Hops & DevOps of the 22nd of Sept in Berlin."
-tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @automatecloud about Shift Left Security with #laceworks #devsecops"
+event_text = "Welcome to the Hops & DevOps in Switzerland (at least virtually)."
+tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @timarenz about Shift Left Security with #laceworks #devsecops"
 version = open(os.path.dirname(__file__) + '/static/version.txt', 'r').read()
-lacework_report = urllib.request.urlretrieve('https://github.com/timarenz/lacework-shift-left-demo/releases/download/v0.1.10/lacework.html', os.path.dirname(__file__) +
+lacework_report = urllib.request.urlretrieve('https://github.com/timarenz/lacework-shift-left-demo/releases/download/' + version + '/lacework.html', os.path.dirname(__file__) +
                                              '/templates/lacework.html')
 
 
