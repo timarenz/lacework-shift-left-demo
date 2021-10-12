@@ -92,4 +92,8 @@ jobs:
         run: kubectl set image deployment/lacework-shift-left-demo lacework-shift-left-demo=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
 
       - name: Check rollout status
-        run: kubectl rollout status deployment/lacework-shift-left-demo -w
+        run: kubectl rollout status deployment/lacework-shift-left-demo --watch --timout 2m
+
+      - name: Rollback if rollout failed
+        if: ${{ !failure() }}
+        run: kubectl rollout undo deployment/lacework-shift-left-demo
