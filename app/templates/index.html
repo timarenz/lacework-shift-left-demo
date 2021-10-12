@@ -46,7 +46,11 @@
                 <img src="{{ url }}" class="img-fluid mb-4" alt="BeachOps" height="500" loading="lazy">
             </div>
         </div>
+        <button type="button" class="btn btn-light">Version <span class="badge bg-dark">{{ version
+                }}</span></button>
         <button type="button" class="btn btn-light">Container Id <span class="badge bg-dark">{{ hostname
+                }}</span></button>
+        <button type="button" class="btn btn-light">Source IP <span class="badge bg-dark">{{ ip
                 }}</span></button>
         <a href="{{ url_for('lacework') }}">
             <button type="button" class="btn btn-light position-relative">

@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for
 import urllib.parse
-import random
 import platform
+import random
 import requests
+from flask import Flask, render_template, url_for, request
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -10,6 +11,8 @@ event_text = "Welcome to the Hops & DevOps of the 22nd of Sept in Berlin."
 tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @automatecloud about Shift Left Security with #laceworks #devsecops"
 random_cocktail = requests.get(
     'https://www.thecocktaildb.com/api/json/v1/1/random.php')
+
+version = open('static/version.txt', 'r').read()
 
 
 @app.route('/')
@@ -22,7 +25,7 @@ def index():
     ]
     url = random.choice(images)
     hostname = platform.node()
-    return render_template('index.html', url=url, hostname=hostname, event_text=event_text, tweet_text=tweet_text, tweet_text_url=urllib.parse.quote(tweet_text))
+    return render_template('index.html', url=url, hostname=hostname, event_text=event_text, tweet_text=tweet_text, tweet_text_url=urllib.parse.quote(tweet_text), version=version, ip=request.remote_addr)
 
 
 @app.route('/andreas')
@@ -41,6 +44,11 @@ def andreas():
 @app.route('/lacework')
 def lacework():
     return render_template('lacework.html')
+
+
+@app.route("/ip")
+def ip():
+    return jsonify({'ip': request.remote_addr}), 200
 
 
 if __name__ == "__main__":
