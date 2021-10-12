@@ -10,8 +10,6 @@ app = Flask(__name__)
 
 event_text = "Welcome to the Hops & DevOps of the 22nd of Sept in Berlin."
 tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from @automatecloud about Shift Left Security with #laceworks #devsecops"
-random_cocktail = requests.get(
-    'https://www.thecocktaildb.com/api/json/v1/1/random.php')
 version = open(os.path.dirname(__file__) + '/static/version.txt', 'r').read()
 lacework_report = urllib.request.urlretrieve('https://github.com/timarenz/lacework-shift-left-demo/releases/download/v0.1.10/lacework.html', os.path.dirname(__file__) +
                                              '/templates/lacework.html')
@@ -27,7 +25,9 @@ def index():
     ]
     url = random.choice(images)
     hostname = platform.node()
-    return render_template('index.html', url=url, hostname=hostname, event_text=event_text, tweet_text=tweet_text, tweet_text_url=urllib.parse.quote(tweet_text), version=version, ip=request.remote_addr)
+    random_cocktail = requests.get(
+        'https://www.thecocktaildb.com/api/json/v1/1/random.php').json()
+    return render_template('index.html', url=url, hostname=hostname, event_text=event_text, tweet_text=tweet_text, tweet_text_url=urllib.parse.quote(tweet_text), version=version, ip=request.remote_addr, cocktail=random_cocktail['drinks'][0]['strDrink'])
 
 
 @app.route('/andreas')
