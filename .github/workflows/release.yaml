@@ -35,8 +35,7 @@ jobs:
 
       - name: Write release version to file
         run: |
-          echo ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
-          ls -alR ${GITHUB_WORKSPACE}
+          echo -n ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
