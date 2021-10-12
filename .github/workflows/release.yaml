@@ -95,5 +95,5 @@ jobs:
         run: kubectl rollout status deployment/lacework-shift-left-demo --watch --timeout 2m
 
       - name: Rollback if rollout failed
-        if: ${{ !failure() }}
+        if: ${{ failure() }}
         run: kubectl rollout undo deployment/lacework-shift-left-demo
