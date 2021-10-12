@@ -1,4 +1,4 @@
-import urllib.parse
+import urllib
 import platform
 import random
 import requests
@@ -13,9 +13,11 @@ tweet_text = "Hello from Hops&DevOps. Just enjoyed a fantastic presentation from
 random_cocktail = requests.get(
     'https://www.thecocktaildb.com/api/json/v1/1/random.php')
 version = open(os.path.dirname(__file__) + '/static/version.txt', 'r').read()
+lacework_report = urllib.request.urlretrieve('https://github.com/timarenz/lacework-shift-left-demo/releases/download/v0.1.10/lacework.html', os.path.dirname(__file__) +
+                                             '/templates/lacework.html')
 
 
-@app.route('/')
+@ app.route('/')
 def index():
     images = [
         url_for('static', filename='beachops-1.png'),
