@@ -30,7 +30,7 @@ jobs:
         run: echo ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
 
       - name: testing
-        run: ls -alR ${GITHUB_WORKSPACE}/app/static/version.txt
+        run: ls -alR ${GITHUB_WORKSPACE}
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
