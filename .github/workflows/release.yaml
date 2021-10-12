@@ -34,7 +34,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Write release version to file
-        run: echo ${{ steps.meta.outputs.version }}>app/static/version.txt
+        run: echo ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
