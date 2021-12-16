@@ -26,6 +26,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Write release version to file
+        run: echo ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
+
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
@@ -45,7 +48,7 @@ jobs:
         with:
           image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           image_tag: ${{ steps.meta.outputs.version }}
-          fail_only_if_vulnerabilities_fixable: false
+          fail_only_if_vulnerabilities_fixable: true
           fail_if_critical_vulnerabilities_found: false
           fail_if_high_vulnerabilities_found: false
           fail_if_medium_vulnerabilities_found: false

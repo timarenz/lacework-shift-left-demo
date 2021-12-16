@@ -13,7 +13,7 @@ jobs:
     name: Release application
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -32,6 +32,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Write release version to file
+        run: |
+          echo -n ${{ steps.meta.outputs.version }}>${GITHUB_WORKSPACE}/app/static/version.txt
 
       - name: Build Docker image
         uses: docker/build-push-action@v2
@@ -61,16 +65,27 @@ jobs:
           save_html_report: true
           html_report_file_name: lacework.html
 
+      # - name: Push Docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     # context: .
+      #     # file: Dockerfile.lacework
+      #     # build-args: |
+      #     #   "SOURCE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+
       - name: Push Docker image
-        uses: docker/build-push-action@v2
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }} 
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Release to GitHub
+        uses: softprops/action-gh-release@v1
         with:
-          context: .
-          file: Dockerfile.lacework
-          build-args: |
-            "SOURCE_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          prerelease: true
+          files: lacework.html
 
       - name: Get GKE credentials
         uses: google-github-actions/get-gke-credentials@main
@@ -83,4 +98,8 @@ jobs:
         run: kubectl set image deployment/lacework-shift-left-demo lacework-shift-left-demo=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}
 
       - name: Check rollout status
-        run: kubectl rollout status deployment/lacework-shift-left-demo -w
+        run: kubectl rollout status deployment/lacework-shift-left-demo --watch --timeout 2m
+
+      - name: Rollback if rollout failed
+        if: ${{ failure() }}
+        run: kubectl rollout undo deployment/lacework-shift-left-demo

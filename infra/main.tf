@@ -78,7 +78,6 @@ resource "kubernetes_deployment" "app" {
         container {
           image = "ghcr.io/timarenz/lacework-shift-left-demo:v0.0.2"
           name  = var.app_name
-
           port {
             container_port = 5000
           }
@@ -103,7 +102,8 @@ resource "kubernetes_service" "app" {
       protocol    = "TCP"
     }
 
-    type = "LoadBalancer"
+    type                    = "LoadBalancer"
+    external_traffic_policy = "Local"
   }
 }
 
